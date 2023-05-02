@@ -1,5 +1,6 @@
 //Paula Carrascal WCC2 final project
 
+// THE DRAWING IN THE BACKGROUND WAS TAKEN FROM HAPPYCODING
 
 var sustantivos = ["love", "stop", "moment", "happiness", "things", "life", "everything", "present", "moment", "much", "take", "time", "hand", "feeling", "part",
 "head", "memory", "remains", "something", "matter", "concept", "meaning",
@@ -66,6 +67,26 @@ let g;
 let b;
 
 let extraCanvas;
+
+const socket = io();
+
+let sensor1;
+
+// Connect to Node.JS Server
+socket.on("connect", () => {
+  console.log(socket.id);
+});
+
+// Callback function on the event we disconnect
+socket.on("disconnect", () => {
+  console.log(socket.id);
+});
+
+// Callback function to recieve message from Node.JS
+socket.on("message", (_message) => {
+  console.log(_message);
+  sensor1 = _message.sensor1;
+});
 
 
 function setup() {
@@ -140,6 +161,8 @@ if(endY < 0 || endY > height){
 
 background(0);
 image(extraCanvas, 0, 0, width,height);
+
+// ADAPT THE POTENTIOMETER TO CONTROL THE RANDOMIZED POETRY
 
 if(frameCount % 80 == 0) {
 
